@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hangman</title>
+</head>
+
+<body>
+
+    <script>
+        const words = [
+            'javascript',
+            'monkey',
+            'amazing',
+            'pancake'
+        ];
+
+        const word = words[Math.floor(Math.random() * words.length)];
+
+        //set up answer array to show how many letters there are
+        const answerArray = [];
+        for (let i = 0; i < word.length; i++) {
+            answerArray[i] = '_';
+        }
+
+        //create a variable to hold the remaining letters
+        const remainingLetters = word.length;
+
+        //          ********THE MAIN GAME LOOP*******    
+        //While there are letters left to be guessed
+        while (remainingLetters > 0) {
+            //show the player their progress
+            alert(answerArray.join(' '));
+
+            //get a guess from the player
+            const guess = prompt('Guess a letter, or click cancel to stop playing.');
+
+            //if guess is blank
+            if (guess === null) {
+                //exit the game loop
+                break;
+            } else if (guess.length !== 1) {
+                //alert to guess a single letter only
+                alert('Please enter a single letter')
+            } else {
+                //update the game state with the guess
+                for (let j = 0; j < word.length; j++) {
+                    //if the letter they guessed is in the word at that point or index
+                    if (word[j] === guess) {
+                        //update the answer array with the letter they guesses at that point or index
+                        answerArray[j] = guess;
+                        //subtract one from remaining letters
+                        remainingLetters--;
+                    }
+                }
+            }
+        }
+
+        //          ********END OF THE GAME LOOP*******    
+
+        //LET player know the word
+        alert(answerArray.join(' '));
+
+        //congratulate the player
+        alert(`good job! The answer was ${word}`);
+    </script>
+</body>
+
+</html>
